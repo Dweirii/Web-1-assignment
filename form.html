@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --border: #e5e5e5;
+            --border-strong: #d4d4d4;
+            --text: #0a0a0a;
+            --text-muted: #737373;
+            --text-subtle: #a3a3a3;
+            --accent: #0a0a0a;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            padding: 60px 20px;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        }
+
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        form {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .group-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--text);
+            transition: all 0.15s ease;
+        }
+
+        input::placeholder {
+            color: var(--text-subtle);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--text);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .option {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            user-select: none;
+            margin-bottom: 0;
+        }
+
+        .option:hover {
+            border-color: var(--border-strong);
+            color: var(--text);
+        }
+
+        .option:has(input:checked) {
+            background: var(--text);
+            color: white;
+            border-color: var(--text);
+        }
+
+        .option input {
+            display: none;
+        }
+
+        .range-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--text);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px var(--border-strong);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--text);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px var(--border-strong);
+        }
+
+        .range-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            min-width: 24px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--text);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #262626;
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg);
+            border-color: var(--border-strong);
+        }
+
+        .success {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            color: #15803d;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .success.show {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Job Application</h1>
+            <p class="subtitle">Complete the form below to apply for a position.</p>
+        </div>
+
+        <div class="success" id="successMsg">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Application submitted successfully.</span>
+        </div>
+
+        <form action="#" method="POST" onsubmit="event.preventDefault(); document.getElementById('successMsg').classList.add('show'); window.scrollTo({top:0, behavior:'smooth'});">
+
+            <div class="field">
+                <label for="fullname">Full name</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="username" required>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="field">
+                <div class="group-label">Position type</div>
+                <div class="options">
+                    <label class="option" for="fulltime">
+                        <input type="radio" id="fulltime" name="position" value="Full-time">
+                        <span>Full-time</span>
+                    </label>
+                    <label class="option" for="parttime">
+                        <input type="radio" id="parttime" name="position" value="Part-time">
+                        <span>Part-time</span>
+                    </label>
+                    <label class="option" for="internship">
+                        <input type="radio" id="internship" name="position" value="Internship">
+                        <span>Internship</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="group-label">Skills</div>
+                <div class="options">
+                    <label class="option" for="html">
+                        <input type="checkbox" id="html" name="skills" value="HTML">
+                        <span>HTML</span>
+                    </label>
+                    <label class="option" for="css">
+                        <input type="checkbox" id="css" name="skills" value="CSS">
+                        <span>CSS</span>
+                    </label>
+                    <label class="option" for="js">
+                        <input type="checkbox" id="js" name="skills" value="JavaScript">
+                        <span>JavaScript</span>
+                    </label>
+                    <label class="option" for="python">
+                        <input type="checkbox" id="python" name="skills" value="Python">
+                        <span>Python</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="tech">Preferred technology</label>
+                <select id="tech" name="tech">
+                    <option value="">Select an option</option>
+                    <option value="React">React</option>
+                    <option value="Angular">Angular</option>
+                    <option value="Vue">Vue.js</option>
+                    <option value="Node">Node.js</option>
+                    <option value="Django">Django</option>
+                    <option value="Laravel">Laravel</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="experience">Experience level</label>
+                <div class="range-row">
+                    <input type="range" id="experience" name="experience" min="0" max="10" value="5" oninput="document.getElementById('rangeVal').textContent = this.value">
+                    <div class="range-value" id="rangeVal">5</div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Apply</button>
+                <button type="reset" class="btn btn-secondary">Clear</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
